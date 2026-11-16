@@ -1,0 +1,192 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Cafe | Checkout</title>
+
+    <link rel="stylesheet" href="{% static 'menu/home.css' %}">
+
+    <style>
+        .checkout-container {
+            max-width: 850px;
+            margin: 60px auto;
+            padding: 25px;
+        }
+
+        .checkout-container h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+
+        .checkout-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .checkout-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #66564c;
+        }
+
+        .checkout-form label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .checkout-form input,
+        .checkout-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .checkout-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .place-order-button {
+            width: 100%;
+            background: #49382d;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 25px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .place-order-button:hover {
+            background: #73533f;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .message {
+            padding: 12px;
+            background: #f8e8e5;
+            color: #8a352c;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">Our Cafe.</a>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'menu' %}">Menu</a>
+        <a href="{% url 'cart' %}">My Cart</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</nav>
+
+<div class="checkout-container">
+
+    <h1>Checkout</h1>
+
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+
+    <div class="checkout-box">
+
+        <h2>Your Order</h2>
+
+        {% for item in cart_items %}
+
+            <div class="order-item">
+                <span>
+                    {{ item.food_item.name }} × {{ item.quantity }}
+                </span>
+
+                <span>
+                    ₹{{ item.food_item.price|floatformat:2 }}
+                </span>
+            </div>
+
+        {% endfor %}
+
+        <div class="total">
+            Total: ₹{{ total|floatformat:2 }}
+        </div>
+
+    </div>
+
+    <div class="checkout-box">
+
+        <h2>Delivery Details</h2>
+
+        <form method="POST" class="checkout-form">
+
+            {% csrf_token %}
+
+            <label>Full Name</label>
+            <input
+                type="text"
+                name="customer_name"
+                maxlength="100"
+                required
+                placeholder="Enter your full name"
+            >
+
+            <label>Phone Number</label>
+            <input
+                type="tel"
+                name="phone"
+                maxlength="15"
+                required
+                placeholder="Enter your phone number"
+            >
+
+            <label>Delivery Address</label>
+            <textarea
+                name="delivery_address"
+                required
+                placeholder="Enter your complete delivery address"
+            ></textarea>
+
+            <button type="submit" class="place-order-button">
+                Place Order
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<footer class="footer">
+    © 2026 Our Cafe. Made with love and coffee.
+</footer>
+
+</body>
+</html>

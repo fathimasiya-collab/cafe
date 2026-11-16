@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Cafe | Welcome</title>
+
+    <link rel="stylesheet" href="{% static 'menu/home.css' %}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <a href="{% url 'home' %}" class="logo">
+            Our Cafe.
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">Home</a>
+
+            <a href="{% url 'menu' %}">Menu</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- Homepage Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="tagline">
+                Welcome to Our Cafe
+            </div>
+
+            <h1>
+                A little coffee,
+                <span>a lot of happiness.</span>
+            </h1>
+
+            <p>
+                Discover the perfect blend of delicious food,
+                freshly brewed coffee and beautiful moments.
+                Your favourite place to relax and enjoy every bite.
+            </p>
+
+            <a href="{% url 'menu' %}" class="menu-button">
+                Explore Our Menu →
+            </a>
+
+        </div>
+
+        <img
+            src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1000"
+            alt="Beautiful coffee shop"
+            class="hero-image"
+        >
+
+    </section>
+
+
+    <!-- About Section -->
+    <section class="about">
+
+        <h2>More than just coffee.</h2>
+
+        <p>
+            We believe every cup tells a story.
+            Enjoy delicious treats, refreshing drinks
+            and a warm atmosphere made just for you.
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <p>© 2026 Our Cafe. Made with love and coffee.</p>
+
+    </footer>
+
+</body>
+</html>

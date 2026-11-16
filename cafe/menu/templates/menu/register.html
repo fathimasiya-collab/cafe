@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Cafe</title>
+
+    <link rel="stylesheet" href="{% static 'menu/auth.css' %}">
+</head>
+
+<body>
+
+<div class="auth-wrapper">
+
+    <div class="auth-container">
+
+        <div class="auth-banner">
+            <div class="coffee-icon">☕</div>
+            <h1>Welcome to Cafe</h1>
+            <p>
+                Great coffee, delicious food and beautiful moments.
+                Create your account and enjoy your favourite treats.
+            </p>
+        </div>
+
+        <div class="auth-form-section">
+
+            <h2>Create Account</h2>
+            <p class="subtitle">Join us and discover something delicious!</p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label>Username</label>
+                    {{ form.username }}
+
+                    {% for error in form.username.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <div class="password-wrap">
+                        {{ form.password1 }}
+                        <button type="button" class="toggle-password"
+                            onclick="togglePassword('id_password1', this)">
+                            SHOW
+                        </button>
+                    </div>
+
+                    {% for error in form.password1.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+
+                    <div class="form-help">
+                        Use a strong password with letters and numbers.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+
+                    <div class="password-wrap">
+                        {{ form.password2 }}
+                        <button type="button" class="toggle-password"
+                            onclick="togglePassword('id_password2', this)">
+                            SHOW
+                        </button>
+                    </div>
+
+                    {% for error in form.password2.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="auth-button">
+                    Create My Account →
+                </button>
+
+            </form>
+
+            <div class="auth-link">
+                Already have an account?
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function togglePassword(id, button) {
+    const field = document.getElementById(id);
+
+    if (field.type === "password") {
+        field.type = "text";
+        button.innerText = "HIDE";
+    } else {
+        field.type = "password";
+        button.innerText = "SHOW";
+    }
+}
+</script>
+
+</body>
+</html>

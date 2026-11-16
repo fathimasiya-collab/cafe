@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Successful | Our Cafe</title>
+
+    <link rel="stylesheet" href="{% static 'menu/home.css' %}">
+
+    <style>
+        .success-container {
+            max-width: 650px;
+            margin: 100px auto;
+            padding: 40px 25px;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .success-icon {
+            font-size: 65px;
+            color: #65845b;
+            margin-bottom: 20px;
+        }
+
+        .success-container h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            color: #49382d;
+        }
+
+        .success-container p {
+            color: #82766c;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: #49382d;
+            color: white;
+            padding: 13px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .home-button:hover {
+            background: #73533f;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">Our Cafe.</a>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'menu' %}">Menu</a>
+    </div>
+</nav>
+
+<div class="success-container">
+
+    <div class="success-icon">✓</div>
+
+    <h1>Order Placed Successfully!</h1>
+
+    <p>
+        Thank you for choosing Our Cafe.
+        Your order has been received successfully.
+        We will prepare your delicious food soon!
+    </p>
+
+    <a href="{% url 'home' %}" class="home-button">
+        Back to Home
+    </a>
+
+</div>
+
+<footer class="footer">
+    © 2026 Our Cafe. Made with love and coffee.
+</footer>
+
+</body>
+</html>

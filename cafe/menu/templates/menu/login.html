@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Cafe</title>
+
+    <link rel="stylesheet" href="{% static 'menu/auth.css' %}">
+</head>
+
+<body>
+
+<div class="auth-wrapper">
+
+    <div class="auth-container">
+
+        <div class="auth-banner">
+            <div class="coffee-icon">☕</div>
+            <h1>Good to See You!</h1>
+            <p>
+                Your favourite coffee and delicious food
+                are waiting for you. Login and enjoy your
+                Cafe experience.
+            </p>
+        </div>
+
+        <div class="auth-form-section">
+
+            <h2>Welcome Back!</h2>
+            <p class="subtitle">Login to your Cafe account.</p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label>Username</label>
+                    {{ form.username }}
+
+                    {% for error in form.username.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <div class="password-wrap">
+                        {{ form.password }}
+                        <button type="button" class="toggle-password"
+                            onclick="togglePassword('id_password', this)">
+                            SHOW
+                        </button>
+                    </div>
+
+                    {% for error in form.password.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="auth-button">
+                    Login to Cafe →
+                </button>
+
+            </form>
+
+            <div class="auth-link">
+                Don't have an account?
+                <a href="{% url 'register' %}">Register Now</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function togglePassword(id, button) {
+    const field = document.getElementById(id);
+
+    if (field.type === "password") {
+        field.type = "text";
+        button.innerText = "HIDE";
+    } else {
+        field.type = "password";
+        button.innerText = "SHOW";
+    }
+}
+</script>
+
+</body>
+</html>
